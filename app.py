@@ -3,14 +3,14 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
-# ---------------- Page config ----------------
+#  Page configurations
 st.set_page_config(
     page_title="Lebanon Tourism Infrastructure Explorer",
     page_icon="🧭",
     layout="wide",
 )
 
-# ---------------- CSS ----------------
+#  CSS 
 st.markdown(
     """
 <style>
@@ -37,8 +37,8 @@ div[data-testid="stCheckbox"] > label:hover { background:#dfe6e9; border-color:#
     unsafe_allow_html=True,
 )
 
-# ---------------- Load Dataset ----------------
-df = pd.read_csv("data/lebanon_tourism.csv")
+#  Load Dataset 
+df = pd.read_csv("lebanon_tourism.csv")
 df.columns = df.columns.str.strip()
 
 num_cols = [
@@ -56,7 +56,7 @@ df["Level"] = df["Area"].str.contains("Governorate", case=False).map(
 )
 df["Total"] = df[num_cols].sum(axis=1)
 
-# ---------------- Header ----------------
+#  Header 
 st.markdown(
     """
     <h1 style="text-align:center;">
@@ -79,7 +79,7 @@ Each row represents an area with a breakdown of facility counts and a computed t
 
 st.divider()
 
-# ---------------- KPI cards ----------------
+#  cards kpi
 gov = (
     df[df["Level"] == "Governorate"]
     .groupby("Area", as_index=False)
@@ -152,7 +152,7 @@ with c4:
 
 st.divider()
 
-# ---------------- Visualization 1 ----------------
+#  Visualization 1 
 st.subheader("Visualization 1 — Total Tourism Infrastructure by Area")
 
 level_choice = st.radio(
@@ -211,7 +211,7 @@ st.write(
 
 st.divider()
 
-# ---------------- Visualization 2 ----------------
+#  Visualization 2 
 st.subheader("Visualization 2 — Tourism Facilities Breakdown by Type")
 
 colA, colB, colC = st.columns([1, 2, 1])
@@ -312,3 +312,4 @@ if selected_cols:
         st.info("No facilities to analyze with the current filters.")
 else:
     st.warning("⚠️ Select at least one facility type to display Chart 2.")
+
